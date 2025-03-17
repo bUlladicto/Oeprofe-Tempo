@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ClientMotionWrapper from "./client-motion-wrapper";
-import { Code, Terminal } from "lucide-react";
+import { Code, Terminal, Send } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -140,32 +140,106 @@ export default function Hero() {
                   <span className="text-xs font-mono">oeprofe-tutor-ia.cli</span>
                 </div>
                 <div className="absolute top-8 bottom-0 left-0 right-0 bg-black/90 pt-4">
-                  <Image
-                    src="/tutor-ai-demo.png"
-                    alt="AI Tutor Demo"
-                    fill
-                    className="object-cover opacity-80"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
-                </div>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <div className="rounded-lg bg-card/90 backdrop-blur-sm p-4 shadow-lg border border-primary/20">
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                        IA
+                  {/* Simulación del chat del tutor */}
+                  <div className="relative h-full w-full overflow-hidden">
+                    {/* Fondo oscuro con código */}
+                    <div className="absolute inset-0 opacity-15 overflow-hidden">
+                      {Array(15).fill(0).map((_, i) => (
+                        <div key={i} className="text-xs font-mono text-primary/70 ml-4 my-2">
+                          {i % 2 === 0 
+                            ? `const respuesta = await tutorIA.preguntar("¿Cómo resolver ${i % 3 === 0 ? 'ecuaciones cuadráticas' : i % 3 === 1 ? 'sistemas de ecuaciones' : 'factorización algebraica'}?");`
+                            : `// Procesando respuesta para ${i % 3 === 0 ? 'María' : i % 3 === 1 ? 'Carlos' : 'Daniela'}, nivel ${Math.floor(Math.random() * 12) + 1}`
+                          }
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {/* Interfaz del chat */}
+                    <div className="absolute inset-0 flex flex-col p-4">
+                      <div className="flex items-center border-b border-primary/20 pb-3 mb-4">
+                        <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold mr-3">
+                          IA
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-sm font-medium text-primary">Tutor IA de Matemáticas</h3>
+                          <p className="text-xs text-muted-foreground">Método socrático personalizado</p>
+                        </div>
                       </div>
-                      <div className="flex-1">
+                      
+                      <div className="flex-1 overflow-y-auto space-y-4">
+                        {/* Mensaje del usuario */}
+                        <div className="flex justify-end">
+                          <div className="bg-primary/10 rounded-lg rounded-tr-none p-3 max-w-[80%]">
+                            <p className="text-sm">No entiendo cómo resolver esta ecuación cuadrática: 2x² - 5x + 3 = 0</p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:24</p>
+                          </div>
+                        </div>
+                        
+                        {/* Respuesta del tutor */}
+                        <div className="flex justify-start">
+                          <div className="bg-muted/50 rounded-lg rounded-tl-none p-3 max-w-[80%]">
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
+                                IA
+                              </div>
+                              <span className="text-xs font-medium">Tutor IA</span>
+                            </div>
+                            <p className="text-sm">
+                              Vamos a analizarla paso a paso. En una ecuación cuadrática de la forma ax² + bx + c = 0, ¿puedes identificar cuáles son los valores de a, b y c en tu ecuación?
+                            </p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:25</p>
+                          </div>
+                        </div>
+                        
+                        {/* Segunda interacción */}
+                        <div className="flex justify-end">
+                          <div className="bg-primary/10 rounded-lg rounded-tr-none p-3 max-w-[80%]">
+                            <p className="text-sm">Creo que a = 2, b = -5 y c = 3</p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:26</p>
+                          </div>
+                        </div>
+                        
                         <ClientMotionWrapper>
-                          <motion.p 
-                            className="text-sm text-foreground"
+                          <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 1.5 }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                            className="flex justify-start"
                           >
-                            Entiendo que estás teniendo dificultades con la resolución de ecuaciones cuadráticas. Vamos a dividir este problema en pasos más simples. Primero identificaremos los valores de a, b y c en la ecuación...
-                          </motion.p>
+                            <div className="bg-muted/50 rounded-lg rounded-tl-none p-3 max-w-[80%]">
+                              <div className="flex items-center gap-2 mb-1">
+                                <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
+                                  IA
+                                </div>
+                                <span className="text-xs font-medium">Tutor IA</span>
+                              </div>
+                              <p className="text-sm">
+                                ¡Exacto! Ahora, ¿qué métodos conoces para resolver ecuaciones cuadráticas? Podríamos usar la fórmula general o intentar factorizar. ¿Qué te parece si intentamos primero ver si podemos factorizar esta expresión?
+                              </p>
+                              <p className="text-xs text-right text-muted-foreground mt-1">10:27</p>
+                            </div>
+                          </motion.div>
                         </ClientMotionWrapper>
+                      </div>
+                      
+                      {/* Área de input */}
+                      <div className="border-t border-primary/20 pt-3 mt-3">
+                        <div className="bg-muted/30 rounded-lg flex items-center p-2">
+                          <input 
+                            type="text" 
+                            className="bg-transparent flex-1 text-sm border-none outline-none focus:ring-0" 
+                            placeholder="Escribe tu pregunta..."
+                            disabled
+                          />
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 ml-1 rounded-full">
+                            <Send className="h-4 w-4 text-primary" />
+                          </Button>
+                        </div>
+                        
+                        <div className="flex justify-between items-center mt-2">
+                          <p className="text-xs text-muted-foreground">Método socrático: te guío con preguntas</p>
+                          <p className="text-xs text-primary">Disponible 24/7</p>
+                        </div>
                       </div>
                     </div>
                   </div>
