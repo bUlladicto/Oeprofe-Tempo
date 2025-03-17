@@ -5,6 +5,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { cn } from "@/lib/utils";
+import { LockIcon } from "lucide-react";
 
 interface AchievementBadgeProps {
   id: string;
@@ -28,25 +30,44 @@ export default function AchievementBadge({
       <Tooltip>
         <TooltipTrigger asChild>
           <Card
-            className={`w-20 h-20 flex items-center justify-center cursor-pointer transition-all ${unlocked ? "bg-gradient-to-br from-amber-100 to-amber-50" : "bg-gray-100 opacity-50"}`}
+            className={cn(
+              "w-full h-full aspect-square flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border hover:shadow-md",
+              unlocked 
+                ? "bg-gradient-to-br from-primary/5 to-primary/10 border-primary/30 hover:border-primary/50" 
+                : "bg-card/40 border-border/40 opacity-70 hover:opacity-80"
+            )}
           >
-            <CardContent className="p-0 flex items-center justify-center">
-              <div
-                className={`text-3xl ${unlocked ? "text-amber-500" : "text-gray-400"}`}
-              >
-                {icon}
+            <CardContent className="p-4 flex flex-col items-center justify-center h-full text-center gap-2">
+              <div className={cn(
+                "p-4 rounded-full", 
+                unlocked 
+                  ? "bg-primary/10" 
+                  : "bg-muted"
+              )}>
+                {unlocked ? icon : <LockIcon className="h-6 w-6 text-muted-foreground" />}
+              </div>
+              <div className="mt-2">
+                <p className={cn(
+                  "font-medium text-sm",
+                  unlocked ? "text-foreground" : "text-muted-foreground"
+                )}>
+                  {name}
+                </p>
+                {unlocked && date && (
+                  <p className="text-xs text-primary mt-1">Desbloqueado</p>
+                )}
               </div>
             </CardContent>
           </Card>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-xs">
-          <div className="space-y-1">
+          <div className="space-y-2">
             <p className="font-medium">{name}</p>
-            <p className="text-xs text-gray-500">{description}</p>
+            <p className="text-xs text-muted-foreground">{description}</p>
             {unlocked && date && (
-              <p className="text-xs text-green-600">Desbloqueado el {date}</p>
+              <p className="text-xs text-primary">Desbloqueado el {date}</p>
             )}
-            {!unlocked && <p className="text-xs text-gray-500">Bloqueado</p>}
+            {!unlocked && <p className="text-xs text-muted-foreground">Bloqueado</p>}
           </div>
         </TooltipContent>
       </Tooltip>
