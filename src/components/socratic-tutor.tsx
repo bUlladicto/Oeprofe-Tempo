@@ -315,7 +315,7 @@ export default function SocraticTutor({
                               "max-w-[85%] rounded-lg p-3",
                               message.role === "user"
                                 ? "bg-primary/10 rounded-tr-none text-foreground"
-                                : "bg-muted/50 rounded-tl-none"
+                                : "bg-primary/5 rounded-tl-none"
                             )}
                           >
                             {message.role === "assistant" && (
@@ -342,7 +342,7 @@ export default function SocraticTutor({
                       {/* Thinking animation */}
                       {tutorThinking && (
                         <div className="flex justify-start">
-                          <div className="bg-muted/50 rounded-lg rounded-tl-none p-3 max-w-[85%]">
+                          <div className="bg-primary/5 rounded-lg rounded-tl-none p-3 max-w-[85%]">
                             <div className="flex items-center gap-2 mb-1">
                               <Avatar className="h-5 w-5">
                                 <AvatarFallback className="text-[10px] bg-primary/10 text-primary">
@@ -400,7 +400,7 @@ export default function SocraticTutor({
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Escribe tu pregunta..."
-                        className="flex-1 min-h-[42px] max-h-[120px] bg-muted/50 border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none"
+                        className="flex-1 min-h-[42px] max-h-[120px] bg-muted/30 border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none"
                         onKeyDown={(e) => {
                           if (e.key === "Enter" && !e.shiftKey) {
                             e.preventDefault();

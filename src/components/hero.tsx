@@ -6,12 +6,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ClientMotionWrapper from "./client-motion-wrapper";
-import { Code, Terminal, Send } from "lucide-react";
+import { Code, Terminal, Send, BarChart2 } from "lucide-react";
 import { useTheme } from "next-themes";
+import { Badge } from "@/components/ui/badge";
+import {
+  BookOpen,
+  Lightbulb,
+  Brain,
+  Calculator,
+  X
+} from "lucide-react";
 
 export default function Hero() {
-  const { theme } = useTheme();
-  const isDarkTheme = theme === "dark";
+  const { resolvedTheme } = useTheme();
+  const isDarkTheme = resolvedTheme === "dark";
   
   return (
     <div className="relative overflow-hidden bg-background pb-16 pt-[4.5rem]">
@@ -143,11 +151,11 @@ export default function Hero() {
                   <Terminal className="h-3.5 w-3.5 text-primary mr-2" />
                   <span className="text-xs font-mono">oeprofe-tutor-ia.cli</span>
                 </div>
-                <div className={`absolute top-8 bottom-0 left-0 right-0 ${isDarkTheme ? 'bg-black/90' : 'bg-slate-900/80'} pt-4`}>
+                <div className={`absolute top-8 bottom-0 left-0 right-0 ${isDarkTheme ? 'bg-black/90' : 'bg-card'} pt-4`}>
                   {/* Simulación del chat del tutor */}
                   <div className="relative h-full w-full overflow-hidden">
-                    {/* Fondo oscuro con código */}
-                    <div className="absolute inset-0 opacity-15 overflow-hidden">
+                    {/* Fondo con código */}
+                    <div className={`absolute inset-0 ${isDarkTheme ? 'opacity-15' : 'opacity-5'} overflow-hidden`}>
                       {Array(15).fill(0).map((_, i) => (
                         <div key={i} className="text-xs font-mono text-primary/70 ml-4 my-2">
                           {i % 2 === 0 
@@ -171,24 +179,40 @@ export default function Hero() {
                       </div>
                       
                       <div className="flex-1 overflow-y-auto space-y-4">
-                        {/* Mensaje del usuario */}
-                        <div className="flex justify-end">
-                          <div className="bg-primary/10 rounded-lg rounded-tr-none p-3 max-w-[80%]">
-                            <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>No entiendo cómo resolver esta ecuación cuadrática: 2x² - 5x + 3 = 0</p>
-                            <p className="text-xs text-right text-muted-foreground mt-1">10:24</p>
-                          </div>
-                        </div>
-                        
-                        {/* Respuesta del tutor */}
+                        {/* Mensaje inicial del tutor */}
                         <div className="flex justify-start">
-                          <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-muted/70'} rounded-lg rounded-tl-none p-3 max-w-[80%]`}>
+                          <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-primary/5'} rounded-lg rounded-tl-none p-3 max-w-[85%]`}>
                             <div className="flex items-center gap-2 mb-1">
                               <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
                                 IA
                               </div>
                               <span className="text-xs font-medium">Tutor IA</span>
                             </div>
-                            <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>
+                            <p className="text-sm text-foreground">
+                              ¡Hola! Soy tu tutor de matemáticas personalizado. ¿En qué puedo ayudarte hoy?
+                            </p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:20</p>
+                          </div>
+                        </div>
+                        
+                        {/* Mensaje del usuario */}
+                        <div className="flex justify-end">
+                          <div className={`${isDarkTheme ? 'bg-primary/10' : 'bg-primary/10'} rounded-lg rounded-tr-none p-3 max-w-[80%]`}>
+                            <p className="text-sm text-foreground">No entiendo cómo resolver esta ecuación cuadrática: 2x² - 5x + 3 = 0</p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:24</p>
+                          </div>
+                        </div>
+                        
+                        {/* Respuesta del tutor */}
+                        <div className="flex justify-start">
+                          <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-primary/5'} rounded-lg rounded-tl-none p-3 max-w-[85%]`}>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
+                                IA
+                              </div>
+                              <span className="text-xs font-medium">Tutor IA</span>
+                            </div>
+                            <p className="text-sm text-foreground">
                               Vamos a analizarla paso a paso. En una ecuación cuadrática de la forma ax² + bx + c = 0, ¿puedes identificar cuáles son los valores de a, b y c en tu ecuación?
                             </p>
                             <p className="text-xs text-right text-muted-foreground mt-1">10:25</p>
@@ -197,52 +221,87 @@ export default function Hero() {
                         
                         {/* Segunda interacción */}
                         <div className="flex justify-end">
-                          <div className="bg-primary/10 rounded-lg rounded-tr-none p-3 max-w-[80%]">
-                            <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>Creo que a = 2, b = -5 y c = 3</p>
+                          <div className={`${isDarkTheme ? 'bg-primary/10' : 'bg-primary/10'} rounded-lg rounded-tr-none p-3 max-w-[80%]`}>
+                            <p className="text-sm text-foreground">Creo que a = 2, b = -5 y c = 3</p>
                             <p className="text-xs text-right text-muted-foreground mt-1">10:26</p>
                           </div>
                         </div>
                         
-                        <ClientMotionWrapper>
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                            className="flex justify-start"
-                          >
-                            <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-muted/70'} rounded-lg rounded-tl-none p-3 max-w-[80%]`}>
-                              <div className="flex items-center gap-2 mb-1">
-                                <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
-                                  IA
-                                </div>
-                                <span className="text-xs font-medium">Tutor IA</span>
+                        {/* Respuesta del tutor */}
+                        <div className="flex justify-start">
+                          <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-primary/5'} rounded-lg rounded-tl-none p-3 max-w-[85%]`}>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
+                                IA
                               </div>
-                              <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>
-                                ¡Exacto! Ahora, ¿qué métodos conoces para resolver ecuaciones cuadráticas? Podríamos usar la fórmula general o intentar factorizar. ¿Qué te parece si intentamos primero ver si podemos factorizar esta expresión?
-                              </p>
-                              <p className="text-xs text-right text-muted-foreground mt-1">10:27</p>
+                              <span className="text-xs font-medium">Tutor IA</span>
+                              <div className="text-[10px] px-1.5 py-0.5 rounded bg-success/10 text-success">
+                                <BarChart2 className="h-3 w-3 inline mr-0.5" />
+                                Guiando
+                              </div>
                             </div>
-                          </motion.div>
-                        </ClientMotionWrapper>
-                      </div>
-                      
-                      {/* Área de input */}
-                      <div className="border-t border-primary/20 pt-3 mt-3">
-                        <div className={`${isDarkTheme ? 'bg-muted/30' : 'bg-muted/40'} rounded-lg flex items-center p-2`}>
-                          <input 
-                            type="text" 
-                            className="bg-transparent flex-1 text-sm border-none outline-none focus:ring-0" 
-                            placeholder="Escribe tu pregunta..."
-                            disabled
-                          />
-                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 ml-1 rounded-full">
-                            <Send className="h-4 w-4 text-primary" />
-                          </Button>
+                            <p className="text-sm text-foreground">
+                              ¡Exacto! Ahora, podemos usar dos métodos:
+                              <br /><br />
+                              1) <strong>Factorización</strong>: Buscamos dos números que multiplicados den a×c = 2×3 = 6 y sumados den b = -5
+                              <br /><br />
+                              ¿Qué números multiplicados dan 6 y sumados dan -5?
+                            </p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:27</p>
+                          </div>
                         </div>
                         
-                        <div className="flex justify-between items-center mt-2">
-                          <p className="text-xs text-muted-foreground">Método socrático: te guío con preguntas</p>
-                          <p className="text-xs text-primary">Disponible 24/7</p>
+                        {/* Respuesta del usuario */}
+                        <div className="flex justify-end">
+                          <div className={`${isDarkTheme ? 'bg-primary/10' : 'bg-primary/10'} rounded-lg rounded-tr-none p-3 max-w-[80%]`}>
+                            <p className="text-sm text-foreground">Serían -2 y -3, porque -2 × -3 = 6 y -2 + (-3) = -5</p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:28</p>
+                          </div>
+                        </div>
+                        
+                        {/* Respuesta final del tutor */}
+                        <div className="flex justify-start">
+                          <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-primary/5'} rounded-lg rounded-tl-none p-3 max-w-[85%]`}>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
+                                IA
+                              </div>
+                              <span className="text-xs font-medium">Tutor IA</span>
+                              <div className="text-[10px] px-1.5 py-0.5 rounded bg-success/10 text-success">
+                                <BarChart2 className="h-3 w-3 inline mr-0.5" />
+                                Explicando
+                              </div>
+                            </div>
+                            <p className="text-sm text-foreground">
+                              ¡Perfecto! Ahora reescribamos la ecuación:
+                              <br /><br />
+                              2x² - 5x + 3 = 0
+                              <br />
+                              2x² - 2x - 3x + 3 = 0
+                              <br />
+                              2x(x - 1) - 3(x - 1) = 0
+                              <br />
+                              (x - 1)(2x - 3) = 0
+                              <br /><br />
+                              Por lo tanto, x = 1 o x = 3/2
+                              <br /><br />
+                              ¿Te gustaría verificar estas soluciones o usar la fórmula cuadrática?
+                            </p>
+                            <p className="text-xs text-right text-muted-foreground mt-1">10:29</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-4">
+                        <div className={`${isDarkTheme ? 'bg-muted/30' : 'bg-muted/20'} rounded-lg flex items-center p-2`}>
+                          <input
+                            type="text"
+                            className="flex-1 bg-transparent text-sm border-none outline-none"
+                            placeholder="Escribe tu pregunta..."
+                          />
+                          <Button variant="ghost" size="sm" className="h-8 w-8">
+                            <Send className="h-4 w-4" />
+                          </Button>
                         </div>
                       </div>
                     </div>
