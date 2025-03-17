@@ -7,8 +7,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import ClientMotionWrapper from "./client-motion-wrapper";
 import { Code, Terminal, Send } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function Hero() {
+  const { theme } = useTheme();
+  const isDarkTheme = theme === "dark";
+  
   return (
     <div className="relative overflow-hidden bg-background pb-16 pt-[4.5rem]">
       {/* Fondo con efecto de código/matriz */}
@@ -139,7 +143,7 @@ export default function Hero() {
                   <Terminal className="h-3.5 w-3.5 text-primary mr-2" />
                   <span className="text-xs font-mono">oeprofe-tutor-ia.cli</span>
                 </div>
-                <div className="absolute top-8 bottom-0 left-0 right-0 bg-black/90 pt-4">
+                <div className={`absolute top-8 bottom-0 left-0 right-0 ${isDarkTheme ? 'bg-black/90' : 'bg-slate-900/80'} pt-4`}>
                   {/* Simulación del chat del tutor */}
                   <div className="relative h-full w-full overflow-hidden">
                     {/* Fondo oscuro con código */}
@@ -170,21 +174,21 @@ export default function Hero() {
                         {/* Mensaje del usuario */}
                         <div className="flex justify-end">
                           <div className="bg-primary/10 rounded-lg rounded-tr-none p-3 max-w-[80%]">
-                            <p className="text-sm">No entiendo cómo resolver esta ecuación cuadrática: 2x² - 5x + 3 = 0</p>
+                            <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>No entiendo cómo resolver esta ecuación cuadrática: 2x² - 5x + 3 = 0</p>
                             <p className="text-xs text-right text-muted-foreground mt-1">10:24</p>
                           </div>
                         </div>
                         
                         {/* Respuesta del tutor */}
                         <div className="flex justify-start">
-                          <div className="bg-muted/50 rounded-lg rounded-tl-none p-3 max-w-[80%]">
+                          <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-muted/70'} rounded-lg rounded-tl-none p-3 max-w-[80%]`}>
                             <div className="flex items-center gap-2 mb-1">
                               <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
                                 IA
                               </div>
                               <span className="text-xs font-medium">Tutor IA</span>
                             </div>
-                            <p className="text-sm">
+                            <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>
                               Vamos a analizarla paso a paso. En una ecuación cuadrática de la forma ax² + bx + c = 0, ¿puedes identificar cuáles son los valores de a, b y c en tu ecuación?
                             </p>
                             <p className="text-xs text-right text-muted-foreground mt-1">10:25</p>
@@ -194,7 +198,7 @@ export default function Hero() {
                         {/* Segunda interacción */}
                         <div className="flex justify-end">
                           <div className="bg-primary/10 rounded-lg rounded-tr-none p-3 max-w-[80%]">
-                            <p className="text-sm">Creo que a = 2, b = -5 y c = 3</p>
+                            <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>Creo que a = 2, b = -5 y c = 3</p>
                             <p className="text-xs text-right text-muted-foreground mt-1">10:26</p>
                           </div>
                         </div>
@@ -206,14 +210,14 @@ export default function Hero() {
                             transition={{ duration: 1, delay: 0.5 }}
                             className="flex justify-start"
                           >
-                            <div className="bg-muted/50 rounded-lg rounded-tl-none p-3 max-w-[80%]">
+                            <div className={`${isDarkTheme ? 'bg-muted/50' : 'bg-muted/70'} rounded-lg rounded-tl-none p-3 max-w-[80%]`}>
                               <div className="flex items-center gap-2 mb-1">
                                 <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-[10px]">
                                   IA
                                 </div>
                                 <span className="text-xs font-medium">Tutor IA</span>
                               </div>
-                              <p className="text-sm">
+                              <p className={`text-sm ${isDarkTheme ? 'text-foreground' : 'text-foreground'}`}>
                                 ¡Exacto! Ahora, ¿qué métodos conoces para resolver ecuaciones cuadráticas? Podríamos usar la fórmula general o intentar factorizar. ¿Qué te parece si intentamos primero ver si podemos factorizar esta expresión?
                               </p>
                               <p className="text-xs text-right text-muted-foreground mt-1">10:27</p>
@@ -224,7 +228,7 @@ export default function Hero() {
                       
                       {/* Área de input */}
                       <div className="border-t border-primary/20 pt-3 mt-3">
-                        <div className="bg-muted/30 rounded-lg flex items-center p-2">
+                        <div className={`${isDarkTheme ? 'bg-muted/30' : 'bg-muted/40'} rounded-lg flex items-center p-2`}>
                           <input 
                             type="text" 
                             className="bg-transparent flex-1 text-sm border-none outline-none focus:ring-0" 

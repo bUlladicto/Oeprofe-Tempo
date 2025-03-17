@@ -20,11 +20,6 @@ export default function TutorProvider() {
     return null;
   }
   
-  // No mostrar el tutor en la landing page
-  if (isLandingPage) {
-    return null;
-  }
-  
   // Adaptar las propiedades según la página actual
   let tutorProps = {
     lessonTitle: "Navegación en OeProfe",
@@ -34,7 +29,14 @@ export default function TutorProvider() {
   };
   
   // Personalizar el tutor según la ruta actual
-  if (pathname.includes('/course/')) {
+  if (isLandingPage) {
+    tutorProps = {
+      lessonTitle: "Bienvenida a OeProfe",
+      lessonType: "introduction",
+      courseSubject: "General",
+      concepts: ["Matemáticas", "Lenguaje", "Ciencias", "PAES"]
+    };
+  } else if (pathname.includes('/course/')) {
     tutorProps = {
       lessonTitle: "Contenido del curso",
       lessonType: "learning",
